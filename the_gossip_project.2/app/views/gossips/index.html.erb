@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TheGossip</title>
+</head>
+<body>
+	<h1 style="text-align:center;">BIENVENUE ici c'est notre super site de potins</h1>
+	<p >✍️✍️<a href="/gossips/new">Créér un nouveau potin</a>✍️✍️</p>
+	<table class="table table-bordered">
+		<thead style="background-color:rgb(100,90,250);">
+			<th>Auteur</th>
+			<th>Gossips</th>
+		</thead>
+	
+		<tbody >
+			<% @user.each_with_index do |test|%>
+				<tr>
+					<td><a href="/users/<%= test.id %>"><%= test.first_name%></a></td>
+        			<td><% test.gossips.each do |gossip| %>
+        				<a href="/gossips/<%= gossip.id%>">
+						 <%= gossip.title %> </a></br></br>
+        			<% end %> </td>    
+				</tr>
+    		<% end %>
+		</tbody>
+	</table>
+
+</body>
+</html>
