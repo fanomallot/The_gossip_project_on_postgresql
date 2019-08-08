@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create gossip</title>
+</head>
+<body>
+	<%= form_tag url_for(action: 'create'), method: "post" do %>
+
+      <%= label_tag 'Title :' %> <br />
+      <%= text_field_tag 'title'%>
+      <br /> <br />
+
+      <%= label_tag 'content :' %> <br />
+      <%= text_area_tag 'content' %>
+      <br /> <br />
+      <%= submit_tag "Create Post" %>
+    <% end %>
+</body>
+</html>
