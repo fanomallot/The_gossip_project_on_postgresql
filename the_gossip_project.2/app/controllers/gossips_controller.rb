@@ -8,6 +8,7 @@ class GossipsController < ApplicationController
   	@gossip = Gossip.find(params[:id])
   end
   def new
+    @gossip = Gossip.new
   end
   def create
   	@gossip = Gossip.new(title: params[:title] , content: params[:content] , user: User.last) # avec xxx qui sont les données obtenues à partir du formulaire
