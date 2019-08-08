@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detaildepotin</title>
+</head>
+<body>
+	<h1 class="bg-success px3">
+		Voici plus d'infos sur l'auteur	
+	</h1>
+	<table class='table'>
+		<tbody>
+			<tr>
+				<th>First name :</th>
+				<td><%= @user.first_name %></td>
+			</tr>
+			<tr>
+				<th>Last name :</th>
+				<td><%= @user.last_name %></td>
+			</tr>
+			<tr>
+				<th>Age :</th>
+				<td><%= @user.age %></td>
+			</tr>
+			<tr>
+				<th>City :</th>
+				<td><%= @user.city.name %></td>
+			</tr>
+			<tr>
+				<th>e-mail :</th>
+				<td> <%= @user.email %></td>
+			</tr>
+		</tbody>
+	</table>
+</br>
+<h3 class="bg-info px-2">Description:</h3>
+	<p><%= @user.description %></p> 
+</body>
+</html>
