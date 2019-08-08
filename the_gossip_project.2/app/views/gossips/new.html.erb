@@ -15,5 +15,13 @@
       <br /> <br />
       <%= submit_tag "Create Post" %>
     <% end %>
+    <% if @gossip.errors.any? %>
+  <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @gossip.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 </body>
 </html>
