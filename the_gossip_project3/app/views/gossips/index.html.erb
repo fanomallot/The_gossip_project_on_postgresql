@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TheGossip</title>
+</head>
+<body>
+	<% if notice != nil  %>
+            <div class="alert alert-success" role="alert">
+              <p id="notice"><%= notice %></p>
+              </div>
+     	<% end %>
+	<h1 style="text-align:center;">BIENVENUE ici c'est notre super site de potins</h1>
+	<p >✍️✍️<a href="/gossips/new">Créér un nouveau potin</a>✍️✍️</p>
+	<table class="table table-bordered text-center">
+		<thead style="background-color:rgb(100,90,250);">
+			<th>Auteur</th>
+			<th>Gossips</th>
+		</thead>
+	
+		<tbody >
+			<% @user.each_with_index do |test|%>
+				<tr>
+					<td><a href="/users/<%= test.id %>"><%= test.first_name%></a></td>
+        			<td><% test.gossips.each do |gossip| %>
+        				<a href="/gossips/<%= gossip.id %>">
+						 <%= gossip.title %> </a> </br> (<%=gossip.comments.count%> commentaires)</br></br>
+        			<% end %> </td>    
+				</tr>
+    		<% end %>
+		</tbody>
+	</table>
+
+</body>
+</html>
