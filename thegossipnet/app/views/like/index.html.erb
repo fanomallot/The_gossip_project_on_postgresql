@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>affichage des utilisateur qui on fait like</title>
+</head>
+<body>
+	<h1 style="text-align: center">Voici les utilisateurs qui ont fait like</h1>
+	<div  class="text-center"> <%@gossip.likes.each do |like|%>
+	<a href="/users/<%=like.user.id%>">§§ <%= like.user.first_name%> </br>	
+	<%end%></div></a>
+</body>
+</html>

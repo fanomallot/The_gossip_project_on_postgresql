@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detaildepotin</title>
+</head>
+<body>
+<!-- affichage alert si le potin a été bien créé -->
+	<span style="text-align: center">
+	<% if notice != nil  %>
+        <div class="alert alert-danger" role="alert">
+        <p id="notice"><%= notice %></p>
+        </div>
+    <% end %></span>
+<!-- phrase d'acceuil -->
+	<h1 class="bg-success px3">
+		Voici plus d'infos sur l'auteur	
+	</h1>
+<!-- tableau d'affichage -->
+	<table class='table table-bordered text-center'>
+		<tbody>
+			<tr>
+				<th>First name :</th>
+				<td><%= @user.first_name %></td>
+			</tr>
+			<tr>
+				<th>Last name :</th>
+				<td><%= @user.last_name %></td>
+			</tr>
+			<tr>
+				<th>Age :</th>
+				<td><%= @user.age %></td>
+			</tr>
+			<tr>
+				<th>City :</th>
+<!-- appel renvoi city show -->
+				<td><a href="/city/<%= @user.city.id%>"><%= @user.city.name %></a></td>
+			</tr>
+			<tr>
+				<th>e-mail :</th>
+				<td> <%= @user.email %></td>
+			</tr>
+		</tbody>
+	</table>
+</br>
+<h3 class="bg-info px-2">Description:</h3>
+	<p><%= @user.description %></p> </br></br>
+<!-- appel renvoi edit user -->
+<a href="/users/<%=@user.id%>/edit">edit</a></br>
+<!-- appel renvoi gossip first et index -->
+<a href="/gossips">Retour à l acceuil</a></br>
+</body>
+</html>
