@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TheGossipProject</title>
+</head>
+<body>
+<!-- phrase acceuil	 -->
+	<div style="margin-top: 220px; ">
+		<h1 style="text-align:center;background-color: green">Bienvenue dans The Gossip Project</h1>
+	<p class="text-center">
+<!-- appel renvoi gossip index -->
+		Si vous voulez voir les potins <%= link_to "clique ici", gossips_path %> </br>
+<!-- creation de nouveau utilisateur -->
+		Créer un nouveau utilisateur <%= link_to "New user", new_user_path %>
+	</p>
+	</div>
+<!-- log in demmande des infos -->
+	<form action="<%=sessions_path%>" method="POST" style="text-align:center">
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+		E-mail:</br>
+		<input type="text" name="email" placeholder="£xample@example.com"></br></br>
+		Mots de passe:</br>
+		<input type="password" name="getpass" placeholder="mots de passe"></br>
+		<input type="submit" value="Login">
+	</form>
+</body>
+</html>

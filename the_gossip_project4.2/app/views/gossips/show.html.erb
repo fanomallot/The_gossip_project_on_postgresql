@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			background-color:DodgerBlue
+		</style>
+		<title>Potin</title>
+	</head>
+	<body>
+<!-- affichage allert -->
+	<% if flash[:success] %>
+    <div class="alert alert-success" style="text-align: center;"><%= flash[:success]%></div>
+    <% else  %>
+    	<%if flash[:danger]%>
+    <div class="alert alert-danger" style="text-align: center;"><%= flash[:danger]%></div>
+    <% end %>
+    <% end %>
+<!-- phrase d'acceuil avec renvoi user show -->
+		<div class="card">
+			<div class="card-body">
+				<h1 class="text-center">
+				<span class="bg-success px-2"><a href="/users/<%= @gossip.user.id%>">
+				<%= @gossip.user.first_name%> </a>'s potins</span></h1>
+			</div>
+		</div>
+		<h3 style="text-align:center;">
+		Voici le contenue plus détailé du potin de l'auteur <br/>
+		</h3>
+<!-- test si current_user à déjà liké -->
+	<%if @gossip.likes.length == 0 %>
+		<%@give = 1%>
+	<%else%>
+		<%@gossip.likes.each do |like|%>
+			<%if like.user != current_user%>
+				<%@give = 1 %>
+			<%else%>
+				<%@give  = 0 %>
+				<%break%>
+			<%end%>
+		<%end%>
+	<%end%>
+<!-- crée un like potin -->
+	<%if @give == 1 %> 
+	<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍", gossip_like_index_path(@gossip.id),
+			method: :post %>
+			<span  px-2>  
+				<%=link_to "(#{@gossip.likes.count})", gossip_like_index_url(@gossip.id)%></span>
+			</div>
+	<%else %> 
+		<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍🏻 "%>
+		<span  px-2>  
+			<%=link_to "(#{@gossip.likes.count})", gossip_like_index_url(@gossip.id)%></span>
+		</div>
+<!-- renvoi destroy like -->
+		<%=link_to '👎',gossip_like_path(@gossip.id,@gossip.likes.ids),method: :delete%>
+	<%end%>
+<!-- test si l'utilisateur est le créateur du commentaire -->
+		<%if current_user == @gossip.user %>
+
+<!-- appel renvoi gossip edit -->
+		<p> <a href="/gossips/<%= @gossip.id%>/edit" class="btn btn-info">Modifié le potin</a></p>
+<!-- appel renvoi gossip destroy -->
+		<p style="text-align:center;" class="btn btn-danger" > <%= link_to 'Supprimé le potin', gossip_path,
+			method: :delete,
+		data: { confirm: 'Are you sure?' } %></p>
+		<%end%>
+<!-- tableau d'affichage-->
+		<table class="table">
+			<thead class="bg-success">
+				<tr>
+					<th scope="col">Auteur</th>
+					<th scope="col">Titre</th>
+					<th scope="col">Contenue</th>
+					<th scope="col"> Ville de l'auteur</th>
+					<th scope="col">Date de creation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+<!-- appel renvoi user show -->
+					<td> <a href="/users/<%= @gossip.user.id%>"><%=@gossip.user.first_name%></a></td>
+					<td><%=@gossip.title%></td>
+					<td><%=@gossip.content%></td>
+<!-- appel renvoi city show -->
+					<td><a href="/city/<%=@gossip.user.city.id%>"><%=@gossip.user.city.name%></a> </td>
+					<td><%=@gossip.created_at%></td>
+				</tr>
+			</tbody>
+		</table>
+<!-- affichage comments -->
+		<p>
+			<div class="row">
+				<div class="col-10" >
+					<h2>Commentaires</h2>
+				</div>
+				<%if @gossip.comments.length == 0 %>
+				<div class="col-10"> > Pas de commentaire en vue</div>
+				<%else%>
+				<%@gossip.comments.each do |comment|%>
+				
+				<div class="col-10"> > <a href="/users/<%= comment.user.id%>">
+				<%=comment.user.first_name%></a> </br>  <%= comment.content%></div>
+				<div class="col-2">
+<!-- test si l'utilisateur est le créateur du commentaire -->
+				<%if current_user == comment.user %>
+<!-- appel renvoi comment edit -->
+					<a href="/gossips/<%=@gossip.id%>/comment/<%=comment.id%>/edit" class="btn btn-info">Modifier</a>
+					
+<!-- appel renvoi comment destroy -->
+					<a href="/gossips/<%=@gossip.id%>/comment/<%=comment.id%>" data-method='delete', data-confirm='Are you sure?' class="btn btn-danger">Supprimé</a>
+				<%end%>
+				</div>
+				<%end%>
+				<%end%>
+			</div></br>
+<!-- comments commande -->
+			<%= form_tag url_for("/gossips/#{@gossip.id}/comment"), method: "post" do%>
+			<%= text_area_tag 'content' %>
+			<%=submit_tag "commenté"%>
+			<%end%></br>
+<!-- affichage erreur -->
+			<% if @comment.errors.any? %>
+			<p>Nous n'avons pas réussi à crée le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+			<ul>
+				<% @comment.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+				<% end %>
+			</ul>
+			<% end %>
+<!-- appel renvoi gossip first et index -->
+			Pour plus de détails sur l'auteur clique sur l'auteur lui même</br>
+			<a href="/gossips">Retour à l acceuil</a></br>
+		</p>
+	</body>
+</html>

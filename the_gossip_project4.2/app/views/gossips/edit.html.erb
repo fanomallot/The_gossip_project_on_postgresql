@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UpdateGossip</title>
+</head>
+<body>
+	<%= form_with(model: @gossip, local: true) do |form| %>
+	<%= label_tag 'Title :' %> <br />
+    <%= text_field_tag 'title',@gossip.title%><br /><br/>
+    <%= label_tag 'content :' %> <br />
+    <%= text_area_tag 'content',@gossip.content %><br /> <br />
+ 
+<p>
+    <%= form.submit %>
+    <%end%>
+    <!-- retour en arrière -->
+	<%=link_to 'retour à la page précedante',gossip_path(@gossip.id)%></br>
+	<%=link_to "retour à l'acceuil",gossips_path%>
+
+</p>
+</body>
+</html>
