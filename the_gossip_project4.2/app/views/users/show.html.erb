@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detaildepotin</title>
+</head>
+<body>
+<!-- affichage allert -->
+	<% if flash[:success] %>
+    <div class="alert alert-success" style="text-align: center;"><%= flash[:success]%></div>
+    <% else  %>
+    	<%if flash[:danger]%>
+    <div class="alert alert-danger" style="text-align: center;"><%= flash[:danger]%></div>
+    <% end %>
+    <% end %>
+<!-- phrase d'acceuil -->
+	<h1 class="bg-success px3">
+		Voici plus d'infos sur l'auteur	
+	</h1>
+<!-- tableau d'affichage -->
+	<table class='table table-bordered text-center'>
+		<tbody>
+			<tr>
+				<th>First name :</th>
+				<td><%= @user.first_name %></td>
+			</tr>
+			<tr>
+				<th>Last name :</th>
+				<td><%= @user.last_name %></td>
+			</tr>
+			<tr>
+				<th>Age :</th>
+				<td><%= @user.age %></td>
+			</tr>
+			<tr>
+				<th>City :</th>
+<!-- appel renvoi city show -->
+				<td><a href="/city/<%= @user.city.id%>"><%= @user.city.name %></a></td>
+			</tr>
+			<tr>
+				<th>e-mail :</th>
+				<td> <%= @user.email %></td>
+			</tr>
+		</tbody>
+	</table>
+</br>
+<!-- user description -->
+<h3 class="bg-info px-2">Description:</h3>
+	<p><%= @user.description %></p> </br></br>
+<!-- appel renvoi edit user -->
+<a href="/users/<%=@user.id%>/edit">edit</a></br>
+<!-- appel renvoi gossip first et index -->
+<a href="/gossips">Retour à l acceuil</a></br>
+<p > <%=link_to 'Delete compte',users_path,
+data: {confirm: "Are you sure,
+	confirmé votre mots de passe"} ,class:"btn btn-danger" %></p>
+</body>
+</html>

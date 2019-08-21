@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<!-- phrase d'acceuil -->
+		<title>City avec details</title>
+	</head>
+	<body>
+		<h1 style="text-align:center;">City details</h1>
+		<p>Voici tous les listes des potins associés à cette ville</p>
+<!-- Tableau ville-potins -->
+		<table class ='table table-bordered text-center'>
+			<thead>
+				<tr>
+					<td>Ville</td>
+					<td>Potins</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= @ville.name %></td>
+					<td><% @ville.users.each do |auteur| %>
+						<% auteur.gossips.each do |gossip|%>
+<!-- appel renvoi show gossip -->
+						<a href="/gossips/<%=gossip.id%>">	<%=gossip.title %></a>
+<!-- test si current_user à déjà liké -->
+							<%@give = 0%>
+							<%if gossip.likes.length == 0 %>
+								<%@give = 1%>
+							<%else%>
+								<%gossip.likes.each do |like|%>
+									<%if like.user != current_user%>
+										<%@give = 1 %>
+									<%else%>
+										<%@give  = 0 %>
+										<%break%>
+									<%end%>
+								<%end%>
+							<%end%>
+<!-- crée un like potin -->
+							<%if @give == 1 %> 
+								<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍", gossip_like_index_path(gossip.id),method: :post %>
+								<span  px-2><%=link_to "(#{gossip.likes.count})", gossip_like_index_url(gossip.id)%></span>
+								</div>
+							<%else %> 
+								<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍🏻 "%>
+									<span  px-2><%=link_to "(#{gossip.likes.count})", gossip_like_index_url(gossip.id)%></span>
+								</div>
+<!-- renvoi destroy like -->
+								<%=link_to '👎',gossip_like_path(gossip.id,gossip.likes.ids),method: :delete%>
+							<%end%></br></br>  
+						<%end%>
+					<%end%></td>	
+				</tr>
+			</tbody>
+		</table>
+<!-- appel renvoi gossip index -->
+		<a href="<%gossips_path%>">Retour à l'acceuil</a></br>
+	</body>
+</html>

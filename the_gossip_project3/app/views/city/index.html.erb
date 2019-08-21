@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>City's Author</title>
+</head>
+<body>
+	<h1 style="text-align:center;"> Ici c'est la ville de chaque autheur</h1>
+	<table class= "table table-bordered text-center">
+		<thead>
+			<tr>
+				<th>City</th>
+				<th>Zip code</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@city.each do |city|%>
+			<tr>
+
+				<td><a href="/city/<%= city.id%>"><%=city.name%> </a></td>
+				<td><%= city.zip_code %></td>
+			</tr>
+			<% end %>	
+		</tbody>
+	</table>
+</body>
+</html>

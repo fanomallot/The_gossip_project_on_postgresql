@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TheGossip</title>
+</head>
+<body>
+<!-- affichage allert -->
+	<% if flash[:success] %>
+    <div class="alert alert-success" style="text-align: center;"><%= flash[:success]%></div>   
+    <% else  %>
+    	<%if flash[:danger]%>
+    <div class="alert alert-danger" style="text-align: center;"><%= flash[:danger]%></div>
+    <% end %>
+    <% end %>
+<!-- renvoi destroy session -->
+	<%= link_to "Se déconnecter", session_path(session.id), method: :delete ,
+	data: {confirm: 'voulez vous se déconnecté'}%>
+<!-- acceuil de bien venue -->
+	<h1 style="text-align:center;">BIENVENUE <%=User.find_by(id: session[:user_id]).first_name%> ici c'est notre super site de potins</h1>
+<!-- renvoi gossip new -->
+	<p >✍️✍️<a href="/gossips/new">Créér un nouveau potin</a>✍️✍️</p>
+<!-- affichage de l'auteur et de ses potins -->
+	<table class="table table-bordered text-center">
+		<thead style="background-color:rgb(100,90,250);">
+			<th>Auteur</th>
+			<th>Gossips</th>
+		</thead>
+	
+		<tbody >
+			<% @user.each_with_index do |test|%>
+				<tr>
+<!-- appel renvoi user show-->
+					<td><a href="/users/<%= test.id %>"><%= test.first_name%></a></td>
+        			<td><% test.gossips.each do |gossip| %>
+<!-- appel renvoi gossip show -->
+        					<a href="/gossips/<%= gossip.id %>">
+							<%= gossip.title %> </a> (<%=gossip.comments.count%> 
+🗣️💬)
+<!-- test si current_user à déjà liké -->
+							<%@give = 0%>
+							<%if gossip.likes.length == 0 %>
+								<%@give = 1%>
+							<%else%>
+								<%gossip.likes.each do |like|%>
+									<%if like.user != current_user%>
+										<%@give = 1 %>
+									<%else%>
+										<%@give  = 0 %>
+										<%break%>
+									<%end%>
+								<%end%>
+							<%end%>
+<!-- crée un like potin -->
+							<%if @give == 1 %> 
+								<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍", gossip_like_index_path(gossip.id),method: :post %>
+								<span  px-2><%=link_to "(#{gossip.likes.count})", gossip_like_index_url(gossip.id)%></span>
+								</div>
+							<%else %> 
+								<div style="text-align:center;" class="btn btn-info" > <%= link_to "👍🏻 "%>
+									<span  px-2><%=link_to "(#{gossip.likes.count})", gossip_like_index_url(gossip.id)%></span>
+								</div>
+<!-- renvoi destroy like -->
+								<%=link_to '👎',gossip_like_path(gossip.id,gossip.likes.ids),method: :delete%>
+							<%end%></br></br>
+        				<% end %> 
+        			</td>    
+				</tr>
+    		<% end %>
+		</tbody>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit User</title>
+</head>
+<body>
+<!-- entête -->
+	<h1>Voulez vous changer votre profil <%=@user.first_name%></h1>
+<!-- demande d information à changé -->
+	<form action='/users/<%= @user.id%>' , method='put' enctype="multipart/form-data" style="text-align: center">
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+		<legend>Créé un nouveau compte</legend>
+	<label>First name:</label>  </br>
+		<input type="text" name="first" value="<%=@user.first_name%>"></br>
+	<label>Last name: </label>  </br>
+		<input type="text" name="last" value="<%=@user.last_name%>"></br>
+	<label>Age: </label> </br>
+		<input type="integer" name="ages" value="<%=@user.age%>"></br>
+	<label>E-mail: </label> </br>
+		<input type="text" name="e_mail" value="<%=@user.email%>"></br>
+	</br>
+	<label>Ville: </label> </br>	
+		<input type="text" name="cite" value="<%=@user.city.name%>">
+	</br>
+	<label>Déscription: </label> </br>
+		<textarea name="descriptions"><%=@user.description%></textarea></br>
+
+	<label>Entré votre mots de passe pour confirmé: </label> </br>
+		<input type="text" name="mpas" placeholder="Mots de passe">
+		<input type="submit" value="Confirmé" class="btn btn-primary">
+<!-- affichage des erreurs modification user-->
+		<% if @user.errors.any? %>
+    		<p>Nous n'avons pas réussi à modifié le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+    		<ul>
+     		<% @user.errors.full_messages.each do |message| %>
+     			<li><%= message %></li>
+			<% end %>
+			</ul>
+		<% end %>
+		</p>
+	</form>
+
+</body>
+</html>

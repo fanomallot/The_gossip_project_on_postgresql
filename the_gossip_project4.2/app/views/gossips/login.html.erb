@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>login before</title>
+	</head>
+	<body class="text-center">
+		<!-- photo atirance -->
+		<a href="/">
+		<img  src="https://previews.123rf.com/images/imagecatalogue/imagecatalogue1611/imagecatalogue161113128/66574856-gossip-text-rubber-seal-stamp-watermark-tag-inside-rectangular-banner-with-grunge-design-and-dirty-t.jpg" alt="Gossip login before" width="472" height="172"></a>
+		<!-- entête -->
+		<div class="col-4 alert alert-primary m-auto" role="alert" >Vous devez vous connecter pour continuer
+		</div>
+		<!-- - log in demmande des infos -->
+		<form action="<%=sessions_path%>" method="POST" style="text-align:center">
+			<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+			E-mail:</br>
+			<input type="text" name="email" placeholder="£xample@example.com"></br>
+			Mots de passe:</br>
+			<input type="password" name="getpass" placeholder="mots de passe"></br>
+			<input type="submit" value="Login" class="btn btn-info"></br></br>
+	<!-- creation de nouveau utilisateur -->
+			<%= link_to "Crée un compte", new_user_path , class:"btn btn-success"%>
+		</form>
+	</body>
+	
+</html>

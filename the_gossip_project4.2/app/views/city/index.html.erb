@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>City's Author</title>
+</head>
+<body>
+<!-- une titre d'acceuil -->
+	<h1 style="text-align:center;"> Ici c'est la ville de chaque autheur</h1>
+<!-- affichage du tableau detaillé de la ville -->
+	<table class= "table table-bordered text-center">
+		<thead>
+			<tr>
+				<th>City</th>
+				<th>Zip code</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@city.each do |city|%>
+			<tr>
+<!-- appel renvoi city  show -->
+				<td><a href="/city/<%= city.id%>"><%=city.name%> </a></td>
+				<td><%= city.zip_code %></td>
+			</tr>
+			<% end %>	
+		</tbody>
+	</table>
+<!-- retour en arrière -->
+	<%=link_to "retour à l'acceuil",gossips_path%>
+
+</body>
+</html>

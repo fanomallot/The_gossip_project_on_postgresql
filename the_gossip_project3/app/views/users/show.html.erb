@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detaildepotin</title>
+</head>
+<body>
+	<h1 class="bg-success px3">
+		Voici plus d'infos sur l'auteur	
+	</h1>
+	<table class='table table-bordered text-center'>
+		<tbody>
+			<tr>
+				<th>First name :</th>
+				<td><%= @user.first_name %></td>
+			</tr>
+			<tr>
+				<th>Last name :</th>
+				<td><%= @user.last_name %></td>
+			</tr>
+			<tr>
+				<th>Age :</th>
+				<td><%= @user.age %></td>
+			</tr>
+			<tr>
+				<th>City :</th>
+				<td><a href="/city/<%= @user.city.id%>"><%= @user.city.name %></a></td>
+			</tr>
+			<tr>
+				<th>e-mail :</th>
+				<td> <%= @user.email %></td>
+			</tr>
+		</tbody>
+	</table>
+</br>
+<h3 class="bg-info px-2">Description:</h3>
+	<p><%= @user.description %></p> </br></br>
+<a href="/">Retour à l acceuil</a></br>
+<a href="/gossips">Retour à la liste Potins</a></br>
+</body>
+</html>

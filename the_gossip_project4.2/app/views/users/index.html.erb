@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test confirmation mots de passe</title>
+</head>
+<body>
+	<h1 class="text-center">confirmé le mots de passe </h1>
+	<%=form_tag url_for(action:'<%=user_path(current_user.id)%>',method:'delete')do%>
+	<input type="password" name="mpass" placeholder="Mots de passe">
+	<input type="password" name="confirm_mpass" placeholder="Mots de passe de confirmation">
+	<input type="submit" name="confirmé">
+	<%end%>
+
+</body>
+</html>

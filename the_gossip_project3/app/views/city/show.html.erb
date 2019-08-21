@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>City avec details</title>
+	</head>
+	<body>
+		<h1 style="text-align:center;">City details</h1>
+		<p>Voici tous les listes des auteurs et potins associés à cette ville</p>
+		<table class ='table table-bordered text-center'>
+			<thead>
+				<tr>
+					<td>Ville</td>
+					<td>Potins</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= @ville.name %></td>
+					
+					<td><% @ville.users.each do |auteur| %>
+						
+						<% auteur.gossips.each do |gossip|%>
+						<a href="/gossips/<%=gossip.id%>">	<%=gossip.title %></a></br> 
+						<%end%>
+					<%end%></td>	
+				</tr>
+			</tbody>
+		</table>
+		<a href="/">Retour à l'acceuil</a></br>
+		<a href="/gossips">Liste potins</a>
+	</body>
+</html>

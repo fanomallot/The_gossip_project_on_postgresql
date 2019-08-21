@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Création d'utilisateur</title>
+</head>
+<body>
+<!-- demande d'infos -->
+	<form action= '/users' method='POST' style="text-align: center">
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+		<legend>Créé un nouveau compte</legend>
+	<label>First name:</label>  </br>
+		<input type="text" name="first_name" placeholder="Prénoms"></br>
+	<label>Last name: </label>  </br>
+		<input type="text" name="last_name" placeholder="Nom"></br>
+	<label>Age: </label> </br>
+		<input type="integer" name="age" placeholder="Age"></br>
+	<label>E-mail: </label> </br>
+		<input type="text" name="email" placeholder="€xample@example.com"></br>
+		<input type="text" name="city" placeholder="Donné votre ville">
+		<input type="text" name="description" size="40" placeholder="Description"></br>
+	<label>Mots de passe: </label> </br>
+		<input type="text" name="mpass" placeholder="Mots de passe">
+		<input type="password" name="confirm_mpass" placeholder="confirmé le mots de passe">
+		<input type="submit" value="Inscription" class="btn btn-primary">
+<!-- affichage erreur sur confirmation mots de passe -->
+	<% if @mp != @cmp %>
+	<div class="alert alert-danger" role="alert" >
+		<p id="notice">erreur confirm password</p> 
+		</div>
+	<%else%>
+<!-- affichage des erreurs création user-->
+	<% if @user.errors.any? %>
+    	<p>Nous n'avons pas réussi à modifié le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+    	<ul>
+     	<% @user.errors.full_messages.each do |message| %>
+     		<li><%= message %></li>
+		<% end %>
+		</ul>
+	<% end %>
+		</p>
+		<%end%>
+
+	</form> 
+</body>
+</html>
